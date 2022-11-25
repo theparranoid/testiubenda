@@ -3,14 +3,13 @@
     <h1 class="builder-header">Configure your Cookie Solution</h1>
     <div class="builder-info">
       <div class="builder-select">
-        <SettingsSelect />
+        <CookieSettings />
       </div>
       <div class="builder-preview">
-        <BannerPreview />
+        <BannerPreview :banner-config="config" />
       </div>
     </div>
     <div class="builder-footer">
-      <a href="/">Read documentation</a>
       <button class="builder-footer-button">Save</button>
     </div>
   </div>
@@ -18,19 +17,19 @@
 
 <script>
 import BannerPreview from "@/views/CookieBuilder/components/BannerPreview.vue";
-import SettingsSelect from "@/views/CookieBuilder/components/SettingsSelect.vue";
+import CookieSettings from "@/views/CookieBuilder/components/CookieSettings.vue";
 import store from "@/store";
 export default {
   name: "CookieBuilder",
-  components: { SettingsSelect, BannerPreview },
+  components: { CookieSettings, BannerPreview },
   computed: {
-    baseConfig() {
-      return store.getters.getBaseConfig;
-    }
+    config() {
+      return store.getters.getConfig;
+    },
   },
   mounted() {
     store.dispatch("fetchBaseConfig");
-  }
+  },
 };
 </script>
 
@@ -41,7 +40,8 @@ export default {
   flex-direction: column;
   align-items: center;
   background-color: white;
-  box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+  box-shadow: #1cc691 0px 3px 8px;
+  border-radius: 8px;
 
   .builder-header {
     width: 100%;
@@ -51,22 +51,36 @@ export default {
 
   .builder-info {
     width: 100%;
+    display: flex;
   }
 
   .builder-select {
-    width: 30%;
+    width: 40%;
   }
 
   .builder-preview {
-    width: 70%;
+    width: 60%;
   }
 
   .builder-footer {
     width: 100%;
     padding: 20px;
     display: flex;
-    justify-content: space-between;
+    justify-content: flex-end;
     background-color: #eeeeee;
+
+    button {
+      background-color: #ddd;
+      padding: 10px 20px;
+      font-size: 16px;
+      border: 2px solid #444444;
+      border-radius: 4px;
+      cursor: pointer;
+
+      &:hover {
+        background-color: #dfd;
+      }
+    }
   }
 }
 </style>
