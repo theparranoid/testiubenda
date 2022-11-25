@@ -1,19 +1,13 @@
 <template>
   <div class="settings-select">
     <div class="select-item">
-      <span class="select-item-header">
-        Target countries
-      </span>
+      <span class="select-item-header"> Target countries </span>
     </div>
     <div class="select-item">
-      <span class="select-item-header">
-        Legislation
-      </span>
+      <span class="select-item-header"> Legislation </span>
     </div>
     <div class="select-item">
-      <span class="select-item-header">
-        Consent
-      </span>
+      <span class="select-item-header"> Consent </span>
     </div>
   </div>
 </template>
@@ -38,5 +32,4 @@ export default {
     margin-bottom: 10px;
   }
 }
-
 </style>

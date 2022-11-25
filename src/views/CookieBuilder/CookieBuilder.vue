@@ -1,14 +1,12 @@
 <template>
   <div class="cookie-builder">
-    <h1 class="builder-header">
-      Configure your Cookie Solution
-    </h1>
+    <h1 class="builder-header">Configure your Cookie Solution</h1>
     <div class="builder-info">
       <div class="builder-select">
-        <SettingsSelect/>
+        <SettingsSelect />
       </div>
       <div class="builder-preview">
-        <BannerPreview/>
+        <BannerPreview />
       </div>
     </div>
     <div class="builder-footer">
@@ -21,9 +19,18 @@
 <script>
 import BannerPreview from "@/views/CookieBuilder/components/BannerPreview.vue";
 import SettingsSelect from "@/views/CookieBuilder/components/SettingsSelect.vue";
+import store from "@/store";
 export default {
   name: "CookieBuilder",
-  components: {SettingsSelect, BannerPreview},
+  components: { SettingsSelect, BannerPreview },
+  computed: {
+    baseConfig() {
+      return store.getters.getBaseConfig;
+    }
+  },
+  mounted() {
+    store.dispatch("fetchBaseConfig");
+  }
 };
 </script>
 
@@ -62,5 +69,4 @@ export default {
     background-color: #eeeeee;
   }
 }
-
 </style>

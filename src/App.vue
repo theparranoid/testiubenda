@@ -1,13 +1,13 @@
 <script>
 import CookieBuilder from "@/views/CookieBuilder/CookieBuilder.vue";
 export default {
-  components: {CookieBuilder}
-}
+  components: { CookieBuilder },
+};
 </script>
 
 <template>
   <div class="main-wrapper">
-    <CookieBuilder/>
+    <CookieBuilder />
   </div>
 </template>
 

@@ -1,6 +1,5 @@
 <template>
-  <div class="banner-preview">
-  </div>
+  <div class="banner-preview"></div>
 </template>
 
 <script>
