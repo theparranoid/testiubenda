@@ -6,11 +6,17 @@
         <CookieSettings />
       </div>
       <div class="builder-preview">
-        <BannerPreview :banner-config="config" />
+        <BannerPreview />
       </div>
     </div>
     <div class="builder-footer">
-      <button class="builder-footer-button">Save</button>
+      <button
+        @click="saveConfig"
+        :disabled="isButtonDisabled"
+        class="builder-footer-button"
+      >
+        Save
+      </button>
     </div>
   </div>
 </template>
@@ -19,16 +25,23 @@
 import BannerPreview from "@/views/CookieBuilder/components/BannerPreview.vue";
 import CookieSettings from "@/views/CookieBuilder/components/CookieSettings.vue";
 import store from "@/store";
+import deepEqual from "@/helpers/deepEqual";
+
 export default {
   name: "CookieBuilder",
   components: { CookieSettings, BannerPreview },
   computed: {
-    config() {
-      return store.getters.getConfig;
+    isButtonDisabled() {
+      return deepEqual(store.getters.getBaseConfig, store.getters.getConfig);
     },
   },
-  mounted() {
+  created() {
     store.dispatch("fetchBaseConfig");
+  },
+  methods: {
+    saveConfig() {
+      store.dispatch("saveConfig");
+    },
   },
 };
 </script>
@@ -36,6 +49,7 @@ export default {
 <style scoped lang="scss">
 .cookie-builder {
   width: 100%;
+  height: 100%;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -52,10 +66,14 @@ export default {
   .builder-info {
     width: 100%;
     display: flex;
+    flex-grow: 1;
+    height: 100%;
+    overflow: auto;
   }
 
   .builder-select {
     width: 40%;
+    overflow: auto;
   }
 
   .builder-preview {
@@ -68,6 +86,7 @@ export default {
     display: flex;
     justify-content: flex-end;
     background-color: #eeeeee;
+    border-top: 2px solid #1cc691;
 
     button {
       background-color: #ddd;

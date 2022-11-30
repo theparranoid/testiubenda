@@ -8,12 +8,13 @@ export default {
 <template>
   <div class="main-wrapper">
     <CookieBuilder />
+    <notifications />
   </div>
 </template>
 
-<style scoped>
+<style scoped lang="scss">
 .main-wrapper {
-  min-height: 100vh;
+  height: 100vh;
   width: 100%;
   display: flex;
   justify-content: center;

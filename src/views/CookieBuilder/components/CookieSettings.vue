@@ -3,7 +3,7 @@
     <div class="settings-item">
       <span class="settings-item-header"> Target countries </span>
       <div class="settings-item-controls">
-        <div v-for="option in targetCountriesSetup" :key="option.id">
+        <div v-for="option in getSettings('targetCountries')" :key="option.id">
           <input
             type="radio"
             name="targetCountries"
@@ -18,7 +18,7 @@
     <div class="settings-item">
       <span class="settings-item-header"> Legislation </span>
       <div class="settings-item-controls">
-        <div v-for="option in legislation" :key="option.value">
+        <div v-for="option in getSettings('legislation')" :key="option.value">
           <input
             type="checkbox"
             :name="option.name"
@@ -32,7 +32,7 @@
     <div class="settings-item">
       <span class="settings-item-header"> Consent </span>
       <div class="settings-item-controls">
-        <div v-for="option in consent" :key="option.value">
+        <div v-for="option in getSettings('consent')" :key="option.value">
           <input
             type="checkbox"
             :name="option.name"
@@ -43,22 +43,53 @@
         </div>
       </div>
     </div>
+    <div class="settings-item">
+      <span class="settings-item-header"> Buttons visibility </span>
+      <div class="settings-item-controls">
+        <div
+          v-for="option in getSettings('buttonsVisibility')"
+          :key="option.value"
+        >
+          <input
+            type="checkbox"
+            :name="option.name"
+            :id="option.value"
+            v-model="self()[option.value]"
+          />
+          <label :for="option.value">{{ option.name }}</label>
+        </div>
+      </div>
+    </div>
+    <div class="settings-item">
+      <span class="settings-item-header"> Close button behaviour </span>
+      <div class="settings-item-controls">
+        <div v-for="option in getSettings('closeButton')" :key="option.value">
+          <input
+            type="checkbox"
+            :name="option.name"
+            :id="option.value"
+            v-model="self()[option.value]"
+          />
+          <label :for="option.value">{{ option.name }}</label>
+        </div>
+      </div>
+    </div>
+    <div class="settings-item">
+      <span class="settings-item-header"> Banner title </span>
+      <div class="settings-item-controls">
+        <textarea v-model="title"></textarea>
+      </div>
+    </div>
   </div>
 </template>
 
 <script>
 import { mapFields } from "vuex-map-fields";
 import settings from "@/views/CookieBuilder/components/settings";
+import store from "@/store";
 
 export default {
   name: "SettingsSelect",
-  data() {
-    return {
-      targetCountriesSetup: settings.targetCountries,
-      legislation: settings.legislation,
-      consent: settings.consent,
-    };
-  },
   computed: {
     ...mapFields([
       "config.gdpr",
@@ -66,6 +97,11 @@ export default {
       "config.targetCountries",
       "config.consentByScroll",
       "config.perPurposeConsent",
+      "config.banner.acceptButtonDisplay",
+      "config.banner.rejectButtonDisplay",
+      "config.banner.closeButtonDisplay",
+      "config.banner.closeButtonRejects",
+      "config.banner.title",
     ]),
   },
   methods: {
@@ -82,12 +118,14 @@ export default {
   flex-direction: column;
   padding: 20px;
   border-right: 2px solid #eee;
+  overflow: auto;
 
   .settings-item {
     width: 100%;
     padding: 20px;
     background-color: #eeeeee;
     margin-bottom: 10px;
+    border-radius: 4px;
 
     &-header {
       font-weight: bold;
@@ -129,6 +167,12 @@ export default {
   input[type="checkbox"]:checked + label {
     background-color: #1cc691;
     color: #ffffff;
+  }
+
+  textarea {
+    padding: 10px 20px;
+    width: 100%;
+    border: 2px solid #444;
   }
 }
 </style>
