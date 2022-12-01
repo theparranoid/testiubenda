@@ -4,7 +4,7 @@
     <div class="preview-header">{{ config.banner.title }}</div>
     <div class="preview-body">
       <span>This banner will be shown for {{ targetCountries }}. </span>
-      <div v-if="areSettingsSelected">
+      <div v-if="anySettingsSelected">
         <span>Your selected settings are:</span>
         <ul>
           <li v-for="(item, index) in getSettingsNames()" :key="index">
@@ -47,7 +47,7 @@ export default {
       }
       return "";
     },
-    areSettingsSelected() {
+    anySettingsSelected() {
       return Object.values(flattenObject(this.config)).some(
         (value) => value === true
       );

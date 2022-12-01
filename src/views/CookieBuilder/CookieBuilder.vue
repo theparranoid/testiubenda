@@ -10,9 +10,10 @@
       </div>
     </div>
     <div class="builder-footer">
+      <button @click="resetConfig" :disabled="isConfigChanged" class="builder-footer-button">Reset</button>
       <button
         @click="saveConfig"
-        :disabled="isButtonDisabled"
+        :disabled="isConfigChanged"
         class="builder-footer-button"
       >
         Save
@@ -31,9 +32,12 @@ export default {
   name: "CookieBuilder",
   components: { CookieSettings, BannerPreview },
   computed: {
-    isButtonDisabled() {
+    isConfigChanged() {
       return deepEqual(store.getters.getBaseConfig, store.getters.getConfig);
     },
+    baseConfig() {
+      return store.getters.getBaseConfig;
+    }
   },
   created() {
     store.dispatch("fetchBaseConfig");
@@ -42,6 +46,9 @@ export default {
     saveConfig() {
       store.dispatch("saveConfig");
     },
+    resetConfig() {
+      store.dispatch("fetchBaseConfig")
+    }
   },
 };
 </script>
@@ -84,7 +91,7 @@ export default {
     width: 100%;
     padding: 20px;
     display: flex;
-    justify-content: flex-end;
+    justify-content: space-between;
     background-color: #eeeeee;
     border-top: 2px solid #1cc691;
 
