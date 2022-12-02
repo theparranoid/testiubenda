@@ -1,18 +1,18 @@
 <template>
-  <div class="banner-preview">
+  <div v-if="!loading" class="banner-preview">
     <div v-if="config.banner.closeButtonDisplay" class="preview-close">X</div>
     <div class="preview-header">{{ config.banner.title }}</div>
     <div class="preview-body">
-      <span>This banner will be shown for {{ targetCountries }}. </span>
-      <div v-if="anySettingsSelected">
-        <span>Your selected settings are:</span>
+      <span>This banner will be shown for {{ getTargetCountries() }}. </span>
+      <div v-if="anySettingsSelected()">
+        <span>Your selected cookieSettings are:</span>
         <ul>
           <li v-for="(item, index) in getSettingsNames()" :key="index">
             {{ item }}
           </li>
         </ul>
       </div>
-      <span v-else>You have no additional settings selected.</span>
+      <span v-else>You have no additional cookieSettings selected.</span>
     </div>
     <div class="preview-footer">
       <button v-if="config.banner.acceptButtonDisplay" class="preview-button">
@@ -26,7 +26,7 @@
 </template>
 
 <script>
-import settings from "@/views/CookieBuilder/components/settings";
+import cookieSettings from "@/views/CookieBuilder/cookieSettings";
 import flattenObject from "@/helpers/flattenObject";
 import store from "@/store";
 
@@ -39,21 +39,21 @@ export default {
     loading() {
       return store.getters.getLoadingState;
     },
-    targetCountries() {
-      if (!this.loading) {
-        return settings.find(
-          (item) => item.value === this.config.targetCountries
-        ).name;
-      }
-      return "";
-    },
+  },
+  methods: {
     anySettingsSelected() {
       return Object.values(flattenObject(this.config)).some(
         (value) => value === true
       );
     },
-  },
-  methods: {
+    getTargetCountries() {
+      if (!this.loading) {
+        return cookieSettings.find(
+          (item) => item.value === this.config.targetCountries
+        ).name;
+      }
+      return "";
+    },
     getSettingsNames() {
       if (!this.loading) {
         let names = [];
@@ -62,7 +62,7 @@ export default {
           (key) => flattenedConfig[key] === true
         );
         selectedBannerSettings.forEach((item) =>
-          names.push(settings.find((el) => el.value === item).name)
+          names.push(cookieSettings.find((el) => el.value === item).name)
         );
         return names;
       }

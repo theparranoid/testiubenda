@@ -11,5 +11,3 @@ app.use(store);
 app.use(Notifications);
 
 app.mount("#app");
-
-// createApp(App).use(store, Notifications).mount("#app");

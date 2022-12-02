@@ -10,7 +10,13 @@
       </div>
     </div>
     <div class="builder-footer">
-      <button @click="resetConfig" :disabled="isConfigChanged" class="builder-footer-button">Reset</button>
+      <button
+        @click="resetConfig"
+        :disabled="isConfigChanged"
+        class="builder-footer-button"
+      >
+        Reset
+      </button>
       <button
         @click="saveConfig"
         :disabled="isConfigChanged"
@@ -37,9 +43,9 @@ export default {
     },
     baseConfig() {
       return store.getters.getBaseConfig;
-    }
+    },
   },
-  created() {
+  mounted() {
     store.dispatch("fetchBaseConfig");
   },
   methods: {
@@ -47,8 +53,11 @@ export default {
       store.dispatch("saveConfig");
     },
     resetConfig() {
-      store.dispatch("fetchBaseConfig")
-    }
+      store.commit(
+        "UPDATE_CONFIG",
+        JSON.parse(JSON.stringify(this.baseConfig))
+      );
+    },
   },
 };
 </script>

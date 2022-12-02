@@ -6,8 +6,8 @@ export default {
   computed: {
     loading() {
       return store.getters.getLoadingState;
-    }
-  }
+    },
+  },
 };
 </script>
 

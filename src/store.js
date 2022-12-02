@@ -4,7 +4,7 @@ import { getField, updateField } from "vuex-map-fields";
 import { notify } from "@kyvg/vue3-notification";
 
 function timeout(ms) {
-  return new Promise(resolve => setTimeout(resolve, ms));
+  return new Promise((resolve) => setTimeout(resolve, ms));
 }
 
 export default createStore({

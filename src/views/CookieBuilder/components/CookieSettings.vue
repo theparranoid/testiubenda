@@ -85,8 +85,9 @@
 
 <script>
 import { mapFields } from "vuex-map-fields";
-import settings from "@/views/CookieBuilder/components/settings";
+import cookieSettings from "@/views/CookieBuilder/cookieSettings";
 import store from "@/store";
+import legalIssuesConfig from "@/views/CookieBuilder/legalIssuesConfig";
 
 export default {
   name: "SettingsSelect",
@@ -109,65 +110,10 @@ export default {
   },
   methods: {
     getSettings(setting) {
-      return settings.filter((item) => item.section === setting);
+      return cookieSettings.filter((item) => item.section === setting);
     },
     checkLegalIssues() {
-      const euCountryIncluded =
-        this.config.targetCountries === "EU" ||
-        this.config.targetCountries === "world";
-
-      const issueIt1 =
-        this.config.banner.closeButtonDisplay === true &&
-        this.config.banner.closeButtonRejects === false;
-      const issueIt2 =
-        this.config.banner.rejectButtonDisplay === false &&
-        this.config.banner.closeButtonDisplay === false;
-      const issueIt3 =
-        this.config.banner.rejectButtonDisplay === true &&
-        this.config.banner.closeButtonDisplay === true &&
-        this.config.banner.closeButtonRejects === false;
-      const issueItFr = this.config.consentByScroll === true;
-      const issueFr = this.config.perPurposeConsent === false;
-
-      const italyLawIssue =
-        euCountryIncluded && (issueIt1 || issueIt2 || issueIt3);
-      const italyFrenchLawIssue = euCountryIncluded && issueItFr;
-      const frenchLawIssue = euCountryIncluded && issueFr;
-
-      const notificationOptions = {
-        title: "Warning",
-        ignoreDuplicates: true,
-        duration: -1,
-        type: "warn",
-        speed: 0,
-      };
-
-      if (!italyLawIssue || !italyFrenchLawIssue || !frenchLawIssue) {
-        this.$notify({
-          clean: true,
-        });
-      }
-
-      if (italyLawIssue) {
-        this.$notify({
-          ...notificationOptions,
-          text: "Your selected settings are not compliant with laws in Italy",
-        });
-      }
-
-      if (italyFrenchLawIssue) {
-        this.$notify({
-          ...notificationOptions,
-          text: "Your selected settings are not compliant with laws in France and Italy",
-        });
-      }
-
-      if (frenchLawIssue) {
-        this.$notify({
-          ...notificationOptions,
-          text: "Your selected settings are not compliant with laws in France",
-        });
-      }
+      legalIssuesConfig(this.config);
     },
     self() {
       return this;

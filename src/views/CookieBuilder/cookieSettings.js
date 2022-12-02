@@ -1,4 +1,4 @@
-const settings = [
+const cookieSettings = [
   {
     section: "targetCountries",
     value: "EU",
@@ -59,4 +59,4 @@ const settings = [
   },
 ];
 
-export default settings;
+export default cookieSettings;
