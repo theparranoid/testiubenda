@@ -3,6 +3,10 @@ import axios from "axios";
 import { getField, updateField } from "vuex-map-fields";
 import { notify } from "@kyvg/vue3-notification";
 
+function timeout(ms) {
+  return new Promise(resolve => setTimeout(resolve, ms));
+}
+
 export default createStore({
   state: {
     baseConfig: {
@@ -31,6 +35,7 @@ export default createStore({
         commit("CHANGE_LOADING_STATE", true);
         const data = await axios.get("mock.json");
         commit("SET_BASE_CONFIG", data.data);
+        await timeout(3000);
         commit("UPDATE_CONFIG", data.data);
       } catch (error) {
         notify({
