@@ -53,10 +53,7 @@ export default {
       store.dispatch("saveConfig");
     },
     resetConfig() {
-      store.commit(
-        "UPDATE_CONFIG",
-        JSON.parse(JSON.stringify(this.baseConfig))
-      );
+      store.dispatch("fetchBaseConfig");
     },
   },
 };

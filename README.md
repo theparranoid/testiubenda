@@ -1,14 +1,3 @@
-# testiubenda
-
-This template should help get you started developing with Vue 3 in Vite.
-
-## Recommended IDE Setup
-
-[VSCode](https://code.visualstudio.com/) + [Volar](https://marketplace.visualstudio.com/items?itemName=Vue.volar) (and disable Vetur) + [TypeScript Vue Plugin (Volar)](https://marketplace.visualstudio.com/items?itemName=Vue.vscode-typescript-vue-plugin).
-
-## Customize configuration
-
-See [Vite Configuration Reference](https://vitejs.dev/config/).
 
 ## Project Setup
 
@@ -33,3 +22,37 @@ npm run build
 ```sh
 npm run lint
 ```
+
+### Tests
+
+```sh
+npm test
+```
+
+### Run minified version
+
+```sh
+npm -g install static-server (Optional: if no server installed)
+cd {drive}/.../testiubenda/dist
+static-server
+
+Or use any other preferred local http server
+```
+
+### Unsolved problems:
+- Stuck on component test setup. I used to use prev versions of test utils, but the new version has a significant number of changes that I don't have time to properly process right now.
+
+### Design decisions:
+
+- created settings object with all related data.
+
+### Suggested improvements:
+
+- create config for texts
+- create custom alert with store
+- create basic input components
+- flatten server data structure or split main and nested object into two to ease code structure
+
+### How much time it took and what you would have done given more time:
+
+It took ~6 hours combined. With more time I could've properly figured out how newer versions of test utils work and, well, make it actually work.
