@@ -38,21 +38,21 @@ const legalIssuesConfig = function (config) {
   if (italyLawIssue) {
     notify({
       ...notificationOptions,
-      text: "Your selected cookieSettings are not compliant with laws in Italy",
+      text: "Your selected settings are not compliant with laws in Italy",
     });
   }
 
   if (italyFrenchLawIssue) {
     notify({
       ...notificationOptions,
-      text: "Your selected cookieSettings are not compliant with laws in France and Italy",
+      text: "Your selected settings are not compliant with laws in France and Italy",
     });
   }
 
   if (frenchLawIssue) {
     notify({
       ...notificationOptions,
-      text: "Your selected cookieSettings are not compliant with laws in France",
+      text: "Your selected settings are not compliant with laws in France",
     });
   }
 };

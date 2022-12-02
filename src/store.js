@@ -2,6 +2,7 @@ import { createStore } from "vuex";
 import axios from "axios";
 import { getField, updateField } from "vuex-map-fields";
 import { notify } from "@kyvg/vue3-notification";
+import {diff} from "deep-object-diff";
 
 function timeout(ms) {
   return new Promise((resolve) => setTimeout(resolve, ms));
@@ -50,7 +51,7 @@ export default createStore({
     async saveConfig({ commit, getters }) {
       try {
         commit("CHANGE_LOADING_STATE", true);
-        await axios.post("/", getters.getConfig);
+        await axios.post("/", diff(getters.getBaseConfig, getters.getConfig));
       } catch (error) {
         notify({
           title: "Error",
